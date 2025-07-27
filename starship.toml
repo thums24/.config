@@ -1,0 +1,11 @@
+[character]
+success_symbol = "[❯](#F6A100)"
+
+[directory]
+style = "#00B4E0"
+
+[dart]
+style = "#00B4E0"
+
+[cmd_duration]
+style = "#FF6600"

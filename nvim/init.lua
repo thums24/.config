@@ -1,6 +1,10 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
-
+require("nvim-highlight-colors").setup({
+  render = "virtual", -- 'background', 'foreground', or 'virtual'
+  virtual_symbol = "■", -- The symbol for the color square
+  virtual_symbol_position = "inline", -- 'inline', 'eol', 'eow'
+})
 --vim.cmd("lua require('catppuccin').setup(require('plugins.catppuccin').opts)")
 vim.cmd("lua require('catppuccin').setup(require('plugins.catppuccin').opts())")
 vim.api.nvim_create_autocmd("VimEnter", {

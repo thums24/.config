@@ -4,3 +4,4 @@
 vim.schedule(function()
   vim.opt.clipboard = ""
 end)
+vim.opt.termguicolors = true

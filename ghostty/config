@@ -1,9 +1,0 @@
-theme = "catppuccin-mocha"
-# Background transparency (0.0 = fully transparent, 1.0 = fully opaque)
-background-opacity = 0.85
-
-# Window blur effect (optional, looks nice with transparency)
-macos-non-native-fullscreen = true
-
-background-blur = true
-keybind = ctrl+a=unbind

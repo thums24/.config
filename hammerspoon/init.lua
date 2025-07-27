@@ -7,5 +7,5 @@ end)
 
 -- Alt+T for terminal
 hs.hotkey.bind({ "alt" }, "t", function()
-	hs.application.launchOrFocus("Terminal") -- Change to your terminal
+	hs.application.launchOrFocus("kitty") -- Change to your terminal
 end)

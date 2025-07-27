@@ -39,7 +39,7 @@ return {
           red = "#EC5E66",
           peach = "#FF6600", -- Hermes orange for light theme
           yellow = "#CAA75E",
-          green = "#87A35E",
+          green = "#004225",
         }),
         frappe = extend_base({
           text = "#fcfcfa",
@@ -58,9 +58,6 @@ return {
           DashboardHeader = { fg = colors.peach },
           AlphaHeader = { fg = colors.peach },
           StartifyHeader = { fg = colors.peach },
-
-          -- Lualine normal mode indicator
-          lualine_a_normal = { bg = colors.peach, fg = colors.base, style = { "bold" } },
         }
       end,
     }
