@@ -4,6 +4,13 @@ success_symbol = "[❯](#F6A100)"
 [directory]
 style = "#00B4E0"
 
+[git_branch]
+style = "#795CCC"
+
+[git_status]
+style = "#E03600"
+
+
 [dart]
 style = "#00B4E0"
 
