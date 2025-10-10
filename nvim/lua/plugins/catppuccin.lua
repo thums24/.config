@@ -17,7 +17,6 @@ end
 return {
   "catppuccin/nvim",
   name = "catppuccin",
-  priority = 1000, -- Make sure it loads before other UI plugins
   opts = function()
     return {
       background = {
@@ -62,10 +61,10 @@ return {
       end,
     }
   end,
-  config = function(_, opts)
+  --[[config = function(_, opts)
     -- Handle both function and table opts
     local resolved_opts = type(opts) == "function" and opts() or opts
     require("catppuccin").setup(resolved_opts)
     vim.cmd.colorscheme("catppuccin")
-  end,
+  end,]]
 }

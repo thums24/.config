@@ -5,3 +5,5 @@ vim.schedule(function()
   vim.opt.clipboard = ""
 end)
 vim.opt.termguicolors = true
+
+vim.g.autoformat = true

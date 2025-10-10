@@ -16,75 +16,84 @@ return {
       },
       decorations = {
         statusline = {
-          -- set to true to be able use the 'flutter_tools_decorations.app_version' in your statusline
-          -- this will show the current version of the flutter app from the pubspec.yaml file
           app_version = true,
-          -- set to true to be able use the 'flutter_tools_decorations.device' in your statusline
-          -- this will show the currently running device if an application was started with a specific
-          -- device
           device = true,
-          -- set to true to be able use the 'flutter_tools_decorations.project_config' in your statusline
-          -- this will show the currently selected project configuration
           project_config = true,
         },
       },
-      debugger = { -- integrate with nvim dap + install dart code debugger
+      debugger = {
         enabled = true,
-        run_via_dap = false, -- use dap instead of a plenary job to run flutter apps
-        -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
-        -- see |:help dap.set_exception_breakpoints()| for more info
+        run_via_dap = false,
         exception_breakpoints = {},
       },
-
-      root_patterns = { ".git", "pubspec.yaml" }, -- patterns to find the root of your flutter project
-      fvm = true, -- takes priority over path, uses <workspace>/.fvm/flutter_sdk if enabled
+      root_patterns = { ".git", "pubspec.yaml" },
+      fvm = true,
       widget_guides = {
         enabled = false,
       },
       closing_tags = {
-        highlight = "Comment", -- highlight for the closing tag
-        prefix = "//", -- character to use for close tag e.g. > Widget
-        enabled = true, -- set to false to disable
+        highlight = "Comment",
+        prefix = "//",
+        enabled = true,
       },
       dev_log = {
         enabled = true,
-        notify_errors = false, -- if there is an error whilst running then notify the user
-        open_cmd = "tabedit", -- command to us
+        notify_errors = false,
+        open_cmd = "tabedit",
       },
       dev_tools = {
-        autostart = false, -- autostart devtools server if not detected
-        auto_open_browser = false, -- Automatically opens devtools in the browser
+        autostart = false,
+        auto_open_browser = false,
       },
       outline = {
-        open_cmd = "30vnew", -- command to use to open the outline buffer
-        auto_open = false, -- if true this will open the outline automatically when it is first populated
+        open_cmd = "30vnew",
+        auto_open = false,
       },
       lsp = {
-        color = { -- show the derived colours for dart variables
-          enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-          background = false, -- highlight the background
-          background_color = nil, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
-          foreground = false, -- highlight the foreground
-          virtual_text = true, -- show the highlight using virtual text
-          virtual_text_str = "■", -- the virtual text character to highlight
+        color = {
+          enabled = true,
+          background = false,
+          background_color = nil,
+          foreground = false,
+          virtual_text = true,
+          virtual_text_str = "■",
         },
-        --- OR you can specify a function to deactivate or change or control how the config is created
+
+        -- THIS IS THE CRITICAL PART FOR FORMAT ON SAVE
+        on_attach = function(client, bufnr)
+          -- Enable format on save for Dart files
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            group = vim.api.nvim_create_augroup("DartFormat_" .. bufnr, { clear = true }),
+            callback = function()
+              vim.lsp.buf.format({ bufnr = bufnr, async = false })
+            end,
+          })
+        end,
+
         capabilities = function(config)
-          config.specificThingIDontWant = false
+          -- Ensure formatting capabilities are enabled
+          config.textDocument = config.textDocument or {}
+          config.textDocument.formatting = { dynamicRegistration = true }
+          config.textDocument.rangeFormatting = { dynamicRegistration = true }
           return config
         end,
-        analysisExcludedFolders = { "./fvm/" },
-        -- see the link below for details on each option:
-        -- https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md#client-workspace-configuration
+
+        analysisExcludedFolders = {
+          vim.fn.expand("$HOME/.pub-cache"),
+          vim.fn.expand("$HOME/fvm"),
+          "./fvm/",
+        },
+
         settings = {
           showTodos = true,
           completeFunctionCalls = true,
-          renameFilesWithClasses = "prompt", -- "always"
-          -- enableSnippets = true,
-          updateImportsOnRename = true, -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
+          renameFilesWithClasses = "prompt",
+          enableSnippets = true,
+          updateImportsOnRename = true,
+          lineLength = 120, -- Set your preferred line length
         },
       },
     })
-    -- '<Cmd>20new | te fvm flutter pub get && fvm flutter packages pub run build_runner build --delete-conflicting-outputs<CR> | $')
   end,
 }
