@@ -2,7 +2,7 @@ return {
   -- Add Rose Pine
   {
     "rose-pine/neovim",
-    name = "rose-pine",
+    name = "rose-pine-moon",
     priority = 1000,
     opts = {
       variant = "main",
@@ -17,7 +17,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "rose-pine",
+      colorscheme = "rose-pine-moon",
     },
   },
 }

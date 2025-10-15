@@ -6,8 +6,12 @@ italic_font auto
 bold_italic_font auto
 
 background_opacity 0.85
+dim_opacity 1.0
 dynamic_background_opacity 0.85
 confirm_os_window_close 0
+background_image none
+background_image_linear no
+
 
 cursor_trail 1
 
@@ -18,5 +22,7 @@ enable_audio_bell no
 
 window_padding_width 4
 
+# BEGIN_KITTY_THEME
+# Rosé Pine Moon
 include current-theme.conf
-
+# END_KITTY_THEME

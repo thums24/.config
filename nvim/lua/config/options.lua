@@ -5,5 +5,7 @@ vim.schedule(function()
   vim.opt.clipboard = ""
 end)
 vim.opt.termguicolors = true
+vim.opt.laststatus = 0
 
 vim.g.autoformat = true
+vim.opt.pumblend = 0
