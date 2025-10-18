@@ -4,6 +4,20 @@ return {
     -- LSP Server configurations
     servers = {
 
+      -- Solidity Language Server
+      solidity = {
+        cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
+        filetypes = { "solidity" },
+        root_dir = require("lspconfig.util").root_pattern(
+          "hardhat.config.ts",
+          "hardhat.config.js",
+          "foundry.toml",
+          "remappings.txt",
+          ".git"
+        ),
+        single_file_support = true,
+      },
+
       -- Go Language Server
       gopls = {
         cmd = { "gopls" },
@@ -49,6 +63,7 @@ return {
 
       -- TypeScript/JavaScript Language Server
       vtsls = {
+        cmd = { "vtsls", "--stdio" },
         filetypes = {
           "javascript",
           "javascriptreact",
@@ -57,6 +72,7 @@ return {
           "typescriptreact",
           "typescript.tsx",
         },
+        root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
         settings = {
           complete_function_calls = true,
           vtsls = {
@@ -83,6 +99,20 @@ return {
               variableTypes = { enabled = false },
             },
           },
+          javascript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+          },
         },
       },
 
@@ -95,11 +125,8 @@ return {
       },
     },
 
-    -- This is the critical part that was missing!
-    setup = {
-      -- Setup handlers for specific servers if needed
-      -- Most servers will auto-setup from the servers table above
-    },
+    -- Setup handlers
+    setup = {},
   },
 
   -- Add config function to ensure servers are set up

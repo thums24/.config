@@ -40,7 +40,7 @@ return {
       menu = {
         border = "rounded", -- Options: "none", "single", "double", "rounded", "solid", "shadow"
         winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-        windblend = 80,
+        winblend = 80,
 
         -- Scrollbar
         scrollbar = true,

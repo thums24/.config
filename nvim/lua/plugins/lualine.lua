@@ -1,20 +1,34 @@
 return {
   "nvim-lualine/lualine.nvim",
   opts = function()
-    -- Use the base Catppuccin theme and tweak mode colors
-    local catppuccin = require("lualine.themes.catppuccin")
-    catppuccin.normal.a.bg = "#eccc81"
-    catppuccin.insert.a.bg = "#FF6600"
-    catppuccin.command.a.bg = "#CAA75E" -- Example: a yellow shade from your palette
-    catppuccin.visual.a.bg = "#986794" -- Example: mauve
-    catppuccin.replace.a.bg = "#EC5E66" -- Example: red
-
+    local colors = require("rose-pine.palette")
     return {
       options = {
-        theme = catppuccin,
-        -- ...other options
+        theme = {
+          normal = {
+            a = { fg = colors.love, bg = colors.base },
+            b = { fg = colors.subtle, bg = colors.base },
+            c = { fg = colors.text, bg = colors.base },
+          },
+          insert = { a = { fg = colors.foam, bg = colors.base } },
+          visual = { a = { fg = colors.iris, bg = colors.base } },
+          replace = { a = { fg = colors.gold, bg = colors.base } },
+          inactive = {
+            a = { fg = colors.text, bg = colors.base },
+            b = { fg = colors.subtle, bg = colors.base },
+            c = { fg = colors.subtle, bg = colors.base },
+          },
+        },
       },
-      -- ...any other lualine options
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "filename" },
+        lualine_c = {},
+        lualine_x = { "diagnostics", "filetype" },
+        lualine_y = { "location" },
+        lualine_z = {},
+      },
+      extensions = {},
     }
   end,
 }
