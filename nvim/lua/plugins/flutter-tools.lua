@@ -1,18 +1,20 @@
 return {
-  "akinsho/flutter-tools.nvim",
+  'akinsho/flutter-tools.nvim',
   lazy = false,
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "mfussenegger/nvim-dap",
-    "stevearc/dressing.nvim", -- optional for vim.ui.select
+    'nvim-lua/plenary.nvim',
+    'mfussenegger/nvim-dap',
+    'stevearc/dressing.nvim', -- optional for vim.ui.select
+  },
+  keys = {
+    { '<leader>ft', '<cmd>Telescope flutter commands<cr>', desc = 'Flutter Tools' },
   },
   config = function()
-    local flutterConfig = require("flutter-tools")
-
-    flutterConfig.setup({
+    local flutterConfig = require 'flutter-tools'
+    flutterConfig.setup {
       ui = {
-        border = "rounded",
-        notification_style = "native",
+        border = 'rounded',
+        notification_style = 'native',
       },
       decorations = {
         statusline = {
@@ -26,27 +28,27 @@ return {
         run_via_dap = false,
         exception_breakpoints = {},
       },
-      root_patterns = { ".git", "pubspec.yaml" },
+      root_patterns = { '.git', 'pubspec.yaml' },
       fvm = true,
       widget_guides = {
         enabled = false,
       },
       closing_tags = {
-        highlight = "Comment",
-        prefix = "//",
+        highlight = 'Comment',
+        prefix = '//',
         enabled = true,
       },
       dev_log = {
         enabled = true,
         notify_errors = false,
-        open_cmd = "tabedit",
+        open_cmd = 'tabedit',
       },
       dev_tools = {
         autostart = false,
         auto_open_browser = false,
       },
       outline = {
-        open_cmd = "30vnew",
+        open_cmd = '30vnew',
         auto_open = false,
       },
       lsp = {
@@ -56,21 +58,18 @@ return {
           background_color = nil,
           foreground = false,
           virtual_text = true,
-          virtual_text_str = "■",
+          virtual_text_str = '■',
         },
-
-        -- THIS IS THE CRITICAL PART FOR FORMAT ON SAVE
         on_attach = function(client, bufnr)
           -- Enable format on save for Dart files
-          vim.api.nvim_create_autocmd("BufWritePre", {
+          vim.api.nvim_create_autocmd('BufWritePre', {
             buffer = bufnr,
-            group = vim.api.nvim_create_augroup("DartFormat_" .. bufnr, { clear = true }),
+            group = vim.api.nvim_create_augroup('DartFormat_' .. bufnr, { clear = true }),
             callback = function()
-              vim.lsp.buf.format({ bufnr = bufnr, async = false })
+              vim.lsp.buf.format { bufnr = bufnr, async = false }
             end,
           })
         end,
-
         capabilities = function(config)
           -- Ensure formatting capabilities are enabled
           config.textDocument = config.textDocument or {}
@@ -78,22 +77,23 @@ return {
           config.textDocument.rangeFormatting = { dynamicRegistration = true }
           return config
         end,
-
         analysisExcludedFolders = {
-          vim.fn.expand("$HOME/.pub-cache"),
-          vim.fn.expand("$HOME/fvm"),
-          "./fvm/",
+          vim.fn.expand '$HOME/.pub-cache',
+          vim.fn.expand '$HOME/fvm',
+          './fvm/',
         },
-
         settings = {
           showTodos = true,
           completeFunctionCalls = true,
-          renameFilesWithClasses = "prompt",
+          renameFilesWithClasses = 'prompt',
           enableSnippets = true,
           updateImportsOnRename = true,
-          lineLength = 120, -- Set your preferred line length
+          lineLength = 120,
         },
       },
-    })
+    }
+
+    -- Load Telescope extension for Flutter
+    require('telescope').load_extension 'flutter'
   end,
 }

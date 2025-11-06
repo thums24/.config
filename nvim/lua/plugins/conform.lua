@@ -1,13 +1,28 @@
 return {
-  "stevearc/conform.nvim",
+  'stevearc/conform.nvim',
+  event = { 'BufReadPre', 'BufNewFile' },
   opts = {
     formatters_by_ft = {
-      typescript = { "prettier" },
-      typescriptreact = { "prettier" },
-      javascript = { "prettier" },
-      javascriptreact = { "prettier" },
-      json = { "prettier" },
-      solidity = { "prettier" },
+      lua = { 'stylua' },
+      go = { 'goimports', 'golines' },
+      typescript = { 'prettier' },
+      typescriptreact = { 'prettier' },
+      javascript = { 'prettier' },
+      javascriptreact = { 'prettier' },
+      json = { 'prettier' },
+      jsonc = { 'prettier' },
+      yaml = { 'prettier' },
+      markdown = { 'prettier' },
+      solidity = { 'prettier' },
     },
+  },
+  formatters = {
+    golines = {
+      prepend_args = { '--max-len=120', '--base-formatter=gofmt' }, -- customise line length
+    },
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = true,
   },
 }
