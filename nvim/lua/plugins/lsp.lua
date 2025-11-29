@@ -207,7 +207,6 @@ return {
           },
         },
       },
-      copilot = { enabled = false },
     }
 
     -- TypeScript-specific on_attach
