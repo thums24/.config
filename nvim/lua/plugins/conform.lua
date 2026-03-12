@@ -15,14 +15,20 @@ return {
       markdown = { 'prettier' },
       solidity = { 'prettier' },
     },
-  },
-  formatters = {
-    golines = {
-      prepend_args = { '--max-len=120', '--base-formatter=gofmt' }, -- customise line length
+    -- All settings must be inside 'opts' to be passed to setup()
+    formatters = {
+      golines = {
+        prepend_args = { '--max-len=120', '--base-formatter=gofmt' },
+      },
+      prettier = {
+        -- Force the solidity plugin for .sol files
+        prepend_args = { '--plugin', 'prettier-plugin-solidity' },
+      },
     },
-  },
-  format_on_save = {
-    timeout_ms = 500,
-    lsp_fallback = true,
+    format_on_save = {
+      -- Increased timeout to prevent goimports 'WARN' timeouts
+      timeout_ms = 2000,
+      lsp_fallback = true,
+    },
   },
 }

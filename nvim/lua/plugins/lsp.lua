@@ -161,6 +161,19 @@ return {
           },
         },
       },
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              diagnosticMode = 'workspace',
+              useLibraryCodeForTypes = true,
+              typeCheckingMode = 'basic', -- Can be 'off', 'basic', or 'strict'
+            },
+          },
+        },
+      },
+
       vtsls = {
         cmd = { 'vtsls', '--stdio' },
         filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
@@ -219,7 +232,7 @@ return {
     servers.vtsls.on_attach = typescript_on_attach
 
     local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, { 'stylua' })
+    vim.list_extend(ensure_installed, { 'stylua', 'black' })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
